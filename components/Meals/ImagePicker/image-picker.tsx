@@ -20,7 +20,7 @@ const ImagePicker = ({ label, name }: { label: string; name: string }) => {
 
     const fileReader = new FileReader();
     fileReader.onload = () => {
-      // @ts-ignore
+      // @ts-expect-error
       setPickedImage(fileReader.result);
     };
     fileReader.readAsDataURL(imageFile);
