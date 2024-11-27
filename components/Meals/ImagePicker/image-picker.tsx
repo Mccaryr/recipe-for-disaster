@@ -12,7 +12,7 @@ const ImagePicker = ({ label, name }: { label: string; name: string }) => {
   };
 
   const handleImageChange = (event: any) => {
-    let imageFile = event.target.files[0];
+    const imageFile = event.target.files[0];
 
     if (!imageFile) {
       setPickedImage(null);

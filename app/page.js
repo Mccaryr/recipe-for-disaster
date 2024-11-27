@@ -24,7 +24,7 @@ export default function Home() {
           <h2 className="font-bold mb-3">How it works</h2>
           <p>
             Recipe for Disaster is a platform for foodies to share their
-            favorite recipes with the world. It's a place to discover new
+            favorite recipes with the world. It&apos;s a place to discover new
             dishes, and to connect with other food lovers.
           </p>
         </section>

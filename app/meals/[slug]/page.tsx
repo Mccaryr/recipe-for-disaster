@@ -37,7 +37,7 @@ const MealDetails = async ({ params }: { params: any }) => {
       </>
     );
   } catch (err) {
-    throw new Error("Meals not available");
+    throw new Error(err);
   }
 };
 export default MealDetails;
