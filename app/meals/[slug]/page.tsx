@@ -36,8 +36,6 @@ const MealDetails = async ({ params }: { params: any }) => {
         </Suspense>
       </>
     );
-  } catch (err) {
-    throw new Error("Something went wrong");
   }
 };
 export default MealDetails;
