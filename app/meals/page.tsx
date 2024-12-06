@@ -2,10 +2,11 @@ import React, { Suspense } from "react";
 import classes from "./page.module.css";
 import Link from "next/link";
 import MealGrid from "@/components/Meals/meal-grid";
-import { getMeals } from "@/lib/meals";
+import { fetchMeals } from "@/lib/meals";
 
 const Meals = async () => {
-  const meals = await getMeals();
+  const meals = await fetchMeals();
+
   return <MealGrid meals={meals} />;
 };
 

@@ -1,20 +1,23 @@
+"use client";
 import classes from "./page.module.css";
 import ImagePicker from "@/components/Meals/ImagePicker/image-picker";
 import { saveMeal } from "@/lib/meals";
 import { redirect } from "next/navigation";
 
 export default function Share() {
-  const handleSubmit = async (formData: any) => {
-    "use server";
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
     const meal = {
       title: formData.get("title"),
       summary: formData.get("summary"),
       image: formData.get("image"),
       instructions: formData.get("instructions"),
-      creator_email: formData.get("email"),
+      creatorEmail: formData.get("email"),
       creator: formData.get("name"),
     };
-
     await saveMeal(meal);
     redirect("/meals");
   };
@@ -28,7 +31,7 @@ export default function Share() {
         <p>Or any other meal you feel needs sharing!</p>
       </header>
       <main className={classes.main}>
-        <form className={classes.form} action={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.row}>
             <p>
               <label htmlFor="name">Your name</label>
