@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchMeals } from "@/lib/meals";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const slug = url.pathname.split("/").pop();
   try {
