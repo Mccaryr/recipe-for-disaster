@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { deleteMeal, fetchMeals, saveMeal, updateMeal } from "@/lib/meals";
 import { MealType } from "@/types/mealType";
 
-export async function GET(req: { query?: string }, res: NextResponse) {
-  const meals = await fetchMeals(req.query);
-  if (!meals) {
-    return NextResponse.json([], { status: 500 });
+export async function GET() {
+  try {
+    const meals = await fetchMeals();
+    return NextResponse.json(meals.data, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(error, { status: 500 });
   }
-  return NextResponse.json(meals.data, { status: 200 });
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {

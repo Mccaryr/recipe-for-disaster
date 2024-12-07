@@ -2,9 +2,11 @@ import React, { Suspense } from "react";
 import classes from "./page.module.css";
 import Link from "next/link";
 import MealGrid from "@/components/Meals/meal-grid";
+import { getBaseUrl } from "@/lib/utils/setupEnv";
 
 const Meals = async () => {
-  const meals = await fetch("http://localhost:3000/api/meals");
+  const baseUrl = getBaseUrl();
+  const meals = await fetch(`${baseUrl}/api/meals`);
   if (!meals) {
     return <p>No Meals Found.</p>;
   } else {

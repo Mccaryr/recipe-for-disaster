@@ -3,13 +3,11 @@ import xss from "xss";
 import { uploadImage } from "@/lib/ImageActions/imageUpload";
 import { supabase } from "./supabase.js";
 import { MealType } from "@/types/mealType";
-import { join } from "path";
-import { writeFile } from "node:fs/promises";
 
-export async function fetchMeals(id?: string) {
+export async function fetchMeals(slug?: string) {
   try {
-    if (id) {
-      return await supabase.from("meals").select("*").eq("id", id).single();
+    if (slug) {
+      return await supabase.from("meals").select("*").eq("slug", slug).single();
     } else {
       return await supabase.from("meals").select("*");
     }
@@ -32,11 +30,10 @@ export async function saveMeal(meal: any) {
       instructions: meal.instructions,
       summary: meal.get("summary"),
       creator: meal.get("name"),
-      creatorEmail: meal.get("email"),
+      creator_email: meal.get("email"),
       image: url,
       slug: meal.slug,
     };
-    console.log("POST savedMeal: ", savedMeal);
     const data = await supabase.from("meals").insert([savedMeal]);
     return data;
   } catch (error) {

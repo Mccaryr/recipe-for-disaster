@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
 import classes from "./page.module.css";
 import Image from "next/image";
+import { getBaseUrl } from "@/lib/utils/setupEnv";
 
 const MealDetails = async ({ params }: { params: any }) => {
+  const baseUrl = getBaseUrl();
   const resolvedParams = await params;
-  const response = await fetch(
-    "http://localhost:3000/api/meals/" + resolvedParams.get("id"),
-  );
+  const response = await fetch(`${baseUrl}/api/meals/` + resolvedParams.slug);
   const meal = await response.json();
 
   if (!meal) {

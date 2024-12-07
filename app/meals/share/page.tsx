@@ -2,8 +2,10 @@
 import classes from "./page.module.css";
 import ImagePicker from "@/components/Meals/ImagePicker/image-picker";
 import { redirect } from "next/navigation";
+import { getBaseUrl } from "@/lib/utils/setupEnv";
 
 export default function Share() {
+  const baseUrl = getBaseUrl();
   const handleSubmit = async (event: {
     preventDefault: () => void;
     target: any;
@@ -12,16 +14,7 @@ export default function Share() {
     const form = event.target;
     const formData = new FormData(form);
 
-    const meal: any = {
-      title: formData.get("title"),
-      summary: formData.get("summary"),
-      image: formData.get("image"),
-      instructions: formData.get("instructions"),
-      creatorEmail: formData.get("email"),
-      creator: formData.get("name"),
-    };
-    console.log("client side meal: ", formData);
-    await fetch("http://localhost:3000/api/meals", {
+    await fetch(`${baseUrl}/api/meals`, {
       method: "POST",
       body: formData,
     });
