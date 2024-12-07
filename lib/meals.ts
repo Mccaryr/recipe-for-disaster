@@ -3,6 +3,8 @@ import xss from "xss";
 import { uploadImage } from "@/lib/ImageActions/imageUpload";
 import { supabase } from "./supabase.js";
 import { MealType } from "@/types/mealType";
+import { join } from "path";
+import { writeFile } from "node:fs/promises";
 
 export async function fetchMeals(id?: string) {
   try {
@@ -17,21 +19,24 @@ export async function fetchMeals(id?: string) {
   }
 }
 
-export async function saveMeal(meal: MealType) {
-  meal.slug = slugify(meal.title, { lower: true });
-  meal.instructions = xss(meal.instructions);
-  const url = await uploadImage(meal.image);
+export async function saveMeal(meal: any) {
+  const file = meal.get("image");
+  const url = await uploadImage(file);
+
+  meal.slug = slugify(meal.get("title"), { lower: true });
+  meal.instructions = xss(meal.get("instructions"));
 
   try {
     const savedMeal = {
-      title: meal.title,
+      title: meal.get("title"),
       instructions: meal.instructions,
-      summary: meal.summary,
-      creator: meal.creator,
-      creator_email: meal.creatorEmail,
+      summary: meal.get("summary"),
+      creator: meal.get("name"),
+      creatorEmail: meal.get("email"),
       image: url,
       slug: meal.slug,
     };
+    console.log("POST savedMeal: ", savedMeal);
     const data = await supabase.from("meals").insert([savedMeal]);
     return data;
   } catch (error) {

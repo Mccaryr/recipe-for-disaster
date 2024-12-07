@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 
-export async function uploadImage(file) {
+export async function uploadImage(file: any) {
   console.log("uploadImage file: ", file);
   const fileName = `${file.name}`;
 
@@ -20,8 +20,7 @@ export async function uploadImage(file) {
   return getImageURL(filePath);
 }
 
-const getImageURL = (filePath) => {
-  // @ts-ignore
+const getImageURL = (filePath: string) => {
   const { data } = supabase.storage.from("meals").getPublicUrl(filePath);
 
   console.log("publicUrl: ", data.publicUrl);

@@ -1,16 +1,18 @@
 "use client";
 import classes from "./page.module.css";
 import ImagePicker from "@/components/Meals/ImagePicker/image-picker";
-import { saveMeal } from "@/lib/meals";
 import { redirect } from "next/navigation";
 
 export default function Share() {
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: {
+    preventDefault: () => void;
+    target: any;
+  }) => {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
 
-    const meal = {
+    const meal: any = {
       title: formData.get("title"),
       summary: formData.get("summary"),
       image: formData.get("image"),
@@ -18,7 +20,11 @@ export default function Share() {
       creatorEmail: formData.get("email"),
       creator: formData.get("name"),
     };
-    await saveMeal(meal);
+    console.log("client side meal: ", formData);
+    await fetch("http://localhost:3000/api/meals", {
+      method: "POST",
+      body: formData,
+    });
     redirect("/meals");
   };
 

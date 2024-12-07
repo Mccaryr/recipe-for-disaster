@@ -10,11 +10,14 @@ export async function GET(req: { query?: string }, res: NextResponse) {
   return NextResponse.json(meals.data, { status: 200 });
 }
 
-export async function POST(req: { body: MealType }) {
+export async function POST(req: NextRequest, res: NextResponse) {
+  const data = await req.formData();
+
   try {
-    const savedMeal = await saveMeal(req.body);
+    const savedMeal = await saveMeal(data);
     return NextResponse.json({ meal: savedMeal }, { status: 201 });
   } catch (error: any) {
+    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
