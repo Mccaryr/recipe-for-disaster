@@ -1,6 +1,7 @@
 import classes from "./meal-grid.module.css";
 import MealItem from "@/components/Meals/meal-item";
-export default function MealGrid({ meals }: { meals: any }) {
+import { MealType } from "@/types/mealType";
+export default function MealGrid({ meals }: { meals: MealType }) {
   return (
     <ul className={classes.meals}>
       {meals.map((meal: any) => (

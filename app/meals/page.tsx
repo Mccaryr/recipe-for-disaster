@@ -2,12 +2,14 @@ import React, { Suspense } from "react";
 import classes from "./page.module.css";
 import Link from "next/link";
 import MealGrid from "@/components/Meals/meal-grid";
-import { fetchMeals } from "@/lib/meals";
 
 const Meals = async () => {
-  const meals = await fetchMeals();
-
-  return <MealGrid meals={meals} />;
+  const meals = await fetch("http://localhost:3000/api/meals");
+  if (!meals) {
+    return <p>No Meals Found.</p>;
+  } else {
+    return <MealGrid meals={await meals.json()} />;
+  }
 };
 
 const MealsPage = () => {

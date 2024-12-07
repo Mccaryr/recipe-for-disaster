@@ -5,5 +5,6 @@ export type MealType = {
   summary: string;
   instructions: string;
   creator: string;
-  creator_email: string;
+  creatorEmail: string;
+  map(element: (meal: any) => JSX.Element): any;
 };
