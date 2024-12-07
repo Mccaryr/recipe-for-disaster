@@ -42,7 +42,7 @@ export async function saveMeal(meal: any) {
   }
 }
 
-export async function updateMeal(meal: MealType, query: string) {
+export async function updateMeal(meal: any) {
   meal.slug = slugify(meal.title, { lower: true });
   meal.instructions = xss(meal.instructions);
   const url = await uploadImage(meal.image);
@@ -60,7 +60,7 @@ export async function updateMeal(meal: MealType, query: string) {
     const data = await supabase
       .from("meals")
       .update([updatedMeal])
-      .eq("id", query);
+      .eq("id", meal.id);
     return data;
   } catch (error) {
     console.error("Error saving meal:", error);

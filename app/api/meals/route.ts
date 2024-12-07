@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PUT(req: { body: MealType; query: string }) {
+export async function PUT(req: NextRequest) {
   try {
-    const updatedMeal = await updateMeal(req.body, req.query);
+    const updatedMeal = await updateMeal(req.body);
     return NextResponse.json({ meal: updatedMeal }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
