@@ -5,12 +5,17 @@ import MealGrid from "@/components/Meals/meal-grid";
 import { getBaseUrl } from "@/lib/utils/setupEnv";
 
 const Meals = async () => {
-  const baseUrl = getBaseUrl();
-  const meals = await fetch(`${baseUrl}/api/meals`);
-  if (!meals) {
-    return <p>No Meals Found.</p>;
-  } else {
+  try {
+    const baseUrl = getBaseUrl();
+    const meals = await fetch(`${baseUrl}/api/meals`);
     return <MealGrid meals={await meals.json()} />;
+  } catch (error) {
+    console.error("Error fetching meals:", error);
+    return (
+      <main className={classes.main}>
+        <p>Failed to load meals. Please try again later.</p>
+      </main>
+    );
   }
 };
 
@@ -27,11 +32,7 @@ const MealsPage = () => {
         </p>
       </header>
       <main className={classes.main}>
-        <Suspense
-          fallback={<div className={classes.loading}>Fetching Meals...</div>}
-        >
-          <Meals />
-        </Suspense>
+        <Meals />
       </main>
     </>
   );

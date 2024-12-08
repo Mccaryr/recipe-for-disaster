@@ -68,9 +68,13 @@ export async function updateMeal(meal: any) {
   }
 }
 
-export async function deleteMeal(id: string) {
+export async function deleteMeal(meal: any) {
   try {
-    const { data, error } = await supabase.from("meals").delete().eq("id", id);
+    const { data, error } = await supabase
+      .from("meals")
+      .delete()
+      .eq("id", meal.id);
+    return data;
   } catch (e) {
     console.error("Error deleting meal:", e);
     throw e;

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deleteMeal, fetchMeals, saveMeal, updateMeal } from "@/lib/meals";
-import { MealType } from "@/types/mealType";
 
 export async function GET() {
   try {
@@ -32,9 +31,10 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-export async function DELETE(req: { query: string }) {
+export async function DELETE(req: NextRequest) {
   try {
-    const deletedMeal = await deleteMeal(req.query);
+    const id = req.body;
+    const deletedMeal = await deleteMeal(req.body);
     return NextResponse.json({ meal: deletedMeal }, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
