@@ -1,7 +1,7 @@
 export const getBaseUrl = () => {
-  if (typeof window === "undefined") {
-    return "http://localhost:3000";
+  if (typeof window !== "undefined") {
+    return window.location.origin;
   } else {
-    return "https://recipe-for-disaster-liart.vercel.app";
+    return process.env.API_BASE_URL || "http://localhost:3000";
   }
 };

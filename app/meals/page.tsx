@@ -7,9 +7,7 @@ import { getBaseUrl } from "@/lib/utils/setupEnv";
 const Meals = async () => {
   try {
     const baseUrl = getBaseUrl();
-    const meals = await fetch(
-      `https://recipe-for-disaster-liart.vercel.app/api/meals`,
-    );
+    const meals = await fetch(`${baseUrl}/api/meals`);
     return <MealGrid meals={await meals.json()} />;
   } catch (error) {
     console.error("Error fetching meals:", error);
