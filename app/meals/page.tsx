@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import classes from "./page.module.css";
 import Link from "next/link";
 import MealGrid from "@/components/Meals/meal-grid";
@@ -7,6 +7,7 @@ import { getBaseUrl } from "@/lib/utils/setupEnv";
 const Meals = async () => {
   try {
     const baseUrl = getBaseUrl();
+    console.log("baseUrl", baseUrl);
     const meals = await fetch(`${baseUrl}/api/meals`);
     return <MealGrid meals={await meals.json()} />;
   } catch (error) {

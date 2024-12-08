@@ -2,7 +2,6 @@ import slugify from "slugify";
 import xss from "xss";
 import { uploadImage } from "@/lib/ImageActions/imageUpload";
 import { supabase } from "./supabase.js";
-import { MealType } from "@/types/mealType";
 
 export async function fetchMeals(slug?: string) {
   try {
