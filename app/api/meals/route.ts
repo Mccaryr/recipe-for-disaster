@@ -3,9 +3,16 @@ import { deleteMeal, fetchMeals, saveMeal, updateMeal } from "@/lib/meals";
 
 export async function GET() {
   try {
+    console.log("Fetching meals..");
     const meals = await fetchMeals();
-    return NextResponse.json(meals.data, { status: 200 });
+    console.log("Meals fetched:", meals);
+    const response = NextResponse.json(meals.data, { status: 200 });
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
   } catch (error) {
+    console.error("Error fetching meals:", error);
     return NextResponse.json(error, { status: 500 });
   }
 }
